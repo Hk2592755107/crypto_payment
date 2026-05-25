@@ -39,16 +39,19 @@ Route::post('/register', function () {
     return redirect('/');
 });
 
-Route::middleware('auth')->group(function () {
-    Route::prefix('payments')->name('payments.')->group(function () {
-        Route::get('checkout/{order}', [PaymentController::class, 'checkout'])->name('checkout');
-        Route::post('pay/{order}', [PaymentController::class, 'pay'])->name('pay');
-        Route::get('confirm/{transaction}', [PaymentController::class, 'confirm'])->name('confirm');
-        Route::get('status/{transaction}', [PaymentController::class, 'status'])->name('status');
-        Route::get('success', [PaymentController::class, 'success'])->name('success');
-        Route::get('cancel', [PaymentController::class, 'cancel'])->name('cancel');
-    });
+Route::prefix('payments')->name('payments.')->group(function () {
+    Route::get('checkout/{order}', [PaymentController::class, 'checkout'])->name('checkout');
+    Route::post('pay/{order}', [PaymentController::class, 'pay'])->name('pay');
+    Route::get('confirm/{transaction}', [PaymentController::class, 'confirm'])->name('confirm');
+    Route::get('status/{transaction}', [PaymentController::class, 'status'])->name('status');
+    Route::get('success', [PaymentController::class, 'success'])->name('success');
+    Route::get('cancel', [PaymentController::class, 'cancel'])->name('cancel');
 });
+
+use App\Http\Controllers\WebhookController;
+
+Route::post('/webhooks/nowpayments', [WebhookController::class, 'nowpayments'])
+    ->name('webhooks.nowpayments');
 
 Route::prefix('admin')->middleware('auth')->name('admin.')->group(function () {
     Route::resource('crypto-gateways', CryptoGatewayController::class, [

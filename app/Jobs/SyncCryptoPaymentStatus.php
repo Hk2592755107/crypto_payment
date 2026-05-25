@@ -2,7 +2,7 @@
 
 namespace App\Jobs;
 
-use App\Services\Crypto\CryptoPaymentService;
+use App\Services\CryptoPaymentService;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
 
