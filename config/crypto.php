@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'sandbox_mode' => env('CRYPTO_SANDBOX_MODE', true) === true || env('CRYPTO_SANDBOX_MODE', true) === 'true',
+    'sandbox_mode' => filter_var(env('CRYPTO_SANDBOX_MODE', true), FILTER_VALIDATE_BOOLEAN),
 
     'nowpayments_api_key' => env('NOWPAYMENTS_API_KEY'),
     'nowpayments_webhook_secret' => env('NOWPAYMENTS_WEBHOOK_SECRET'),

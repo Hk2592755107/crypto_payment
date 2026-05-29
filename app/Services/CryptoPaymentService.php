@@ -37,12 +37,16 @@ class CryptoPaymentService
                 $data = $response->json();
                 $allCurrencies = array_map('strtoupper', $data['currencies'] ?? []);
                 // Only return popular currencies that are actually supported
-                return array_values(array_intersect($this->popularCurrencies, $allCurrencies));
+                $supported = array_values(array_intersect($this->popularCurrencies, $allCurrencies));
+                if (!empty($supported)) {
+                    return $supported;
+                }
             }
         } catch (\Exception $e) {
             \Log::warning('Failed to fetch NOWPayments currencies: ' . $e->getMessage());
         }
 
+        // Fallback: return popular currencies if API fails or returns empty
         return $this->popularCurrencies;
     }
 
