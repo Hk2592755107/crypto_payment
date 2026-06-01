@@ -11,7 +11,7 @@ class WebhookController extends Controller
     public function nowpayments(Request $request)
     {
         $payload = $request->all();
-        $signature = $request->header('X-Nowpayments-Signature', '');
+        $signature = $request->header('x-nowpayments-sig', '');
 
         $webhookLog = WebhookLog::create([
             'crypto_gateway_id' => 2,
