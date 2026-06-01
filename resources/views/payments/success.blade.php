@@ -44,7 +44,7 @@
                             </tr>
                             <tr>
                                 <td><strong>Confirmed At:</strong></td>
-                                <td>{{ $transaction->confirmed_at->format('M d, Y H:i:s') }}</td>
+                                <td>{{ $transaction->confirmed_at?->format('M d, Y H:i:s') ?? 'N/A' }}</td>
                             </tr>
                             @if($transaction->transaction_hash)
                             <tr>
